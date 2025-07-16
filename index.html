@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 日程规划</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="left-column">
+            <!-- 待办事项模块现在在上方 -->
+            <div class="todo-container">
+                <div class="todo-header">
+                    <h2>待办事项</h2>
+                </div>
+                <div class="todo-body">
+                    <ul id="todo-list"></ul>
+                </div>
+                <div class="todo-input">
+                    <input type="text" id="todo-text-input" placeholder="输入待办事项...">
+                    <input type="date" id="todo-ddl-input">
+                    <button id="add-todo-btn">添加</button>
+                </div>
+            </div>
+            <!-- AI 聊天框在下方 -->
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h2>AI 助手</h2>
+                </div>
+                <div class="chat-box" id="chat-box">
+                    <div class="message assistant">
+                        <p>您好！请告诉我您的日程安排，例如：“明天下午2点和技术团队开会”。</p>
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="user-input" placeholder="输入您的日程安排...">
+                    <button id="send-btn">发送</button>
+                </div>
+            </div>
+        </div>
+        <div class="calendar-container">
+            <div class="calendar-header">
+                <button id="prev-month-btn">&lt;</button>
+                <h2 id="month-year"></h2>
+                <button id="next-month-btn">&gt;</button>
+            </div>
+            <div class="calendar-grid" id="calendar-grid">
+                <div class="day-name">日</div>
+                <div class="day-name">一</div>
+                <div class="day-name">二</div>
+                <div class="day-name">三</div>
+                <div class="day-name">四</div>
+                <div class="day-name">五</div>
+                <div class="day-name">六</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Event Edit Modal (hidden by default) -->
+    <div id="event-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h2>编辑日程</h2>
+            <input type="hidden" id="event-date-key">
+            <input type="hidden" id="event-index">
+            
+            <div class="modal-field">
+                <label for="event-time-input">时间</label>
+                <input type="time" id="event-time-input">
+            </div>
+            
+            <div class="modal-field">
+                <label for="event-title-input">事件</label>
+                <input type="text" id="event-title-input" placeholder="事件标题...">
+            </div>
+
+            <div class="modal-actions">
+                <button id="save-event-btn" class="btn-save">保存</button>
+                <button id="delete-event-btn" class="btn-delete">删除</button>
+                <button id="close-modal-btn" class="btn-cancel">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

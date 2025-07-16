@@ -1,0 +1,289 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f4f7f6;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    max-width: 1400px;
+    height: calc(100vh - 40px);
+}
+
+/* 左侧栏，占1/3宽度 */
+.left-column {
+    flex: 1; /* flex: 1; 代表占据1份 */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+}
+
+/* 右侧日历，占2/3宽度 */
+.calendar-container {
+    flex: 2; /* flex: 2; 代表占据2份 */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 待办事项，占约60%高度 */
+.todo-container {
+    flex: 3; /* 在垂直方向上占据3份 */
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    min-height: 0; /* 允许flex项目收缩 */
+}
+
+/* 聊天框，占约40%高度 */
+.chat-container {
+    flex: 2; /* 在垂直方向上占据2份 */
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    min-height: 0; /* 允许flex项目收缩 */
+}
+
+
+/* --- 待办事项模块样式 --- */
+.todo-header {
+    background-color: #28a745;
+    color: white;
+    padding: 15px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    text-align: center;
+}
+.todo-header h2 { margin: 0; font-size: 1.2em; }
+.todo-body { flex-grow: 1; padding: 15px; overflow-y: auto; }
+#todo-list { list-style: none; padding: 0; margin: 0; }
+#todo-list li {
+    display: flex;
+    align-items: center;
+    padding: 10px 5px;
+    border-bottom: 1px solid #eee;
+    font-size: 0.95em;
+    position: relative; /* 为删除按钮的绝对定位做准备 */
+}
+#todo-list li.completed .todo-text { text-decoration: line-through; color: #888; }
+.todo-checkbox { margin-right: 15px; cursor: pointer; }
+.todo-text { flex-grow: 1; }
+.todo-ddl {
+    font-size: 0.8em;
+    color: #666;
+    background-color: #f0f0f0;
+    padding: 2px 6px;
+    border-radius: 10px;
+    margin-left: 10px;
+    margin-right: 25px; /* 为删除按钮留出空间 */
+    cursor: pointer;
+}
+
+.delete-todo-btn {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 20px;
+    text-align: center;
+    opacity: 0; /* 默认隐藏 */
+    transition: opacity 0.2s ease-in-out;
+}
+
+#todo-list li:hover .delete-todo-btn {
+    opacity: 1; /* 鼠标悬停时显示 */
+}
+
+.todo-edit-input {
+    flex-grow: 1;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    padding: 2px 5px;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.todo-input {
+    display: flex;
+    padding: 15px;
+    border-top: 1px solid #eee;
+}
+#todo-text-input { flex-grow: 1; border: 1px solid #ddd; border-radius: 20px; padding: 10px 15px; font-size: 1em; margin-right: 10px; }
+#todo-ddl-input { border: 1px solid #ddd; border-radius: 20px; padding: 8px; font-size: 0.9em; margin-right: 10px; }
+#add-todo-btn { background-color: #28a745; color: white; border: none; border-radius: 20px; padding: 10px 20px; cursor: pointer; font-size: 1em; transition: background-color 0.3s; }
+#add-todo-btn:hover {
+    background-color: #218838;
+}
+
+#todo-form {
+    display: flex;
+    margin-bottom: 15px;
+    align-items: center; /* 垂直居中对齐 */
+}
+
+#todo-input {
+    flex-grow: 1;
+    margin-right: 10px;
+    padding: 8px; /* 减小内边距 */
+    font-size: 14px;
+}
+
+#todo-date {
+    margin-right: 10px;
+    padding: 7px; /* 减小内边距 */
+    font-size: 14px;
+}
+
+#add-todo-btn {
+    padding: 8px 12px; /* 调整内边距，确保文字在一行 */
+    font-size: 14px;
+    white-space: nowrap; /* 禁止文字换行 */
+}
+
+
+/* --- 聊天框模块样式 --- */
+.chat-header {
+    background-color: #007bff;
+    color: white;
+    padding: 15px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    text-align: center;
+}
+.chat-header h2 { margin: 0; font-size: 1.2em; }
+.chat-box { flex-grow: 1; padding: 15px; overflow-y: auto; border-bottom: 1px solid #eee; border-top: 1px solid #eee; }
+.message { margin-bottom: 15px; display: flex; flex-direction: column; }
+.message p { margin: 0; padding: 10px 15px; border-radius: 18px; max-width: 80%; word-wrap: break-word; }
+.user { align-items: flex-end; }
+.user p { background-color: #007bff; color: white; border-bottom-right-radius: 4px; }
+.assistant { align-items: flex-start; }
+.assistant p { background-color: #e9e9eb; color: #333; border-bottom-left-radius: 4px; }
+.chat-input { display: flex; padding: 15px; }
+#user-input { flex-grow: 1; border: 1px solid #ddd; border-radius: 20px; padding: 10px 15px; font-size: 1em; margin-right: 10px; }
+#send-btn { background-color: #007bff; color: white; border: none; border-radius: 20px; padding: 10px 20px; cursor: pointer; font-size: 1em; transition: background-color 0.3s; }
+#send-btn:hover { background-color: #0056b3; }
+
+
+/* --- 日历模块样式 --- */
+.calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.calendar-header h2 { margin: 0; font-size: 1.5em; }
+.calendar-header button { background: none; border: 1px solid #ddd; border-radius: 50%; width: 30px; height: 30px; cursor: pointer; font-size: 1.2em; }
+.calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; flex-grow: 1; }
+.day-name, .day { text-align: center; padding: 10px; }
+.day-name { font-weight: bold; color: #888; }
+.day { border: 1px solid #e0e0e0; border-radius: 4px; cursor: pointer; transition: background-color 0.3s; position: relative; min-height: 80px; }
+.day:hover { background-color: #f0f0f0; }
+.day.other-month { color: #ccc; background-color: #f9f9f9; }
+.day.today { background-color: #e3f2fd; border-color: #007bff; }
+.day .day-number { font-size: 0.9em; }
+.day .events { font-size: 0.7em; margin-top: 5px; }
+.day .event { background-color: #007bff; color: white; padding: 2px 5px; border-radius: 3px; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* --- Modal Styles --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    width: 90%;
+    max-width: 400px;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.modal-field {
+    margin-bottom: 15px;
+}
+
+.modal-field label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.modal-field input[type="time"],
+.modal-field input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box; /* Important for padding and width */
+}
+
+.modal-actions {
+    margin-top: 25px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.modal-actions button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: opacity 0.2s;
+}
+
+.modal-actions button:hover {
+    opacity: 0.8;
+}
+
+.btn-save {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-delete {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.btn-cancel {
+    background-color: #ccc;
+    color: #333;
+}
